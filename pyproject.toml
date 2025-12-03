@@ -1,0 +1,13 @@
+[project]
+name = "json-processor"
+version = "0.1.0"
+description = "A Python project for JSON file operations"
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["src"]
