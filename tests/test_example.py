@@ -3,6 +3,7 @@ import pytest
 from moto import mock_aws
 
 
+@pytest.mark.unit
 @mock_aws
 def test_s3_bucket_creation():
     """Example test: Create an S3 bucket using mocked AWS."""
@@ -17,6 +18,7 @@ def test_s3_bucket_creation():
     assert bucket_name in bucket_names
 
 
+@pytest.mark.unit
 @mock_aws
 def test_s3_put_and_get_object():
     """Example test: Put and retrieve an object from S3."""

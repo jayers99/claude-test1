@@ -19,10 +19,28 @@ python src/main.py
 
 This project follows Test-Driven Development practices.
 
-### Run tests
+### Run all tests
 
 ```bash
 pipenv run pytest
+```
+
+### Run only unit tests (mocked, fast)
+
+```bash
+pipenv run pytest -m unit
+```
+
+### Run only integration tests (real AWS, requires credentials)
+
+```bash
+RUN_INTEGRATION_TESTS=1 pipenv run pytest -m integration
+```
+
+### Run tests excluding integration tests
+
+```bash
+pipenv run pytest -m "not integration"
 ```
 
 ### Run tests with coverage
@@ -31,6 +49,11 @@ pipenv run pytest
 pipenv run pytest --cov=src --cov-report=term-missing
 ```
 
+### Test Types
+
+- **Unit tests** (`@pytest.mark.unit`): Fast tests using mocked AWS services via [moto](https://github.com/getmoto/moto). See `tests/test_example.py`.
+- **Integration tests** (`@pytest.mark.integration`): Tests against real AWS services. Require valid AWS credentials and `RUN_INTEGRATION_TESTS=1`. See `tests/test_integration.py`.
+
 ### TDD Workflow
 
 1. Write a failing test first (`tests/test_*.py`)
@@ -38,10 +61,6 @@ pipenv run pytest --cov=src --cov-report=term-missing
 3. Write minimal code to make it pass
 4. Refactor if needed
 5. Repeat
-
-### Mocking AWS Services
-
-Uses [moto](https://github.com/getmoto/moto) to mock AWS services in tests. See `tests/test_example.py` for examples.
 
 ## Project Structure
 
@@ -52,7 +71,8 @@ Uses [moto](https://github.com/getmoto/moto) to mock AWS services in tests. See 
 │   └── main.py
 ├── tests/
 │   ├── __init__.py
-│   └── test_example.py
+│   ├── test_example.py      # Unit tests
+│   └── test_integration.py  # Integration tests
 ├── pytest.ini
 ├── Pipfile
 ├── pyproject.toml
